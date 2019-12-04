@@ -2,9 +2,15 @@ package com.exelcia.webapi.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,5 +40,22 @@ public class ForfaitController {
 		return repo.findById(forfaitId).orElseThrow(
 				() -> new ResourceNotFoundException("Forfait", "id", forfaitId));
 	}
+	
+	@PostMapping("/forfaits")
+	public Forfait createForfait(@Valid @RequestBody Forfait forfait) {
+		return repo.save(forfait);
+	}
+	
+	@DeleteMapping("/forfaits/{id}")
+	public ResponseEntity<Forfait> deleteForfaitById(@PathVariable(value="id")Long forfaitId) {
+		Forfait forfait = repo.findById(forfaitId).orElseThrow(
+				() -> new ResourceNotFoundException("Forfait", "id", forfaitId));
+		repo.delete(forfait);
+		
+		return ResponseEntity.ok(forfait);
+		
+	}
+	
+	
 
 }
