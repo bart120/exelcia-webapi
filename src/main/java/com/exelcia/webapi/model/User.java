@@ -41,6 +41,14 @@ public class User implements UserDetails, Serializable {
 	@Size(max=40)
 	private String email;
 	
+	@NotBlank
+    @Size(max = 15)
+    private String username;
+	
+	@NotBlank
+    @Size(max = 100)
+    private String password;
+	
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "utilisateurs_roles",
