@@ -13,12 +13,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sun.istack.NotNull;
 
 
 @Entity
@@ -32,9 +34,11 @@ public class Forfait implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@NotBlank
-	private float prix;
+	@NotNull
+	private Float prix;
 	
+	@NotBlank
+	//@NotEmpty
 	private String libelle;
 	
 	private String typeClient;
@@ -57,11 +61,11 @@ public class Forfait implements Serializable {
 		this.id = id;
 	}
 
-	public float getPrix() {
+	public Float getPrix() {
 		return prix;
 	}
 
-	public void setPrix(float prix) {
+	public void setPrix(Float prix) {
 		this.prix = prix;
 	}
 
