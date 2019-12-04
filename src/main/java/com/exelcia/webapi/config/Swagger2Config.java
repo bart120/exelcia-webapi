@@ -2,6 +2,8 @@ package com.exelcia.webapi.config;
 
 import static springfox.documentation.builders.PathSelectors.regex;
 import java.util.Collections;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -15,6 +17,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class Swagger2Config {
+	
+	//@Value("${swagger.title}")
+	//private String swaggerTitle;
+	
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2).select()
@@ -24,8 +30,8 @@ public class Swagger2Config {
             .build().apiInfo(apiEndPointsInfo());
     }
     private ApiInfo apiEndPointsInfo() {
-        return new ApiInfoBuilder().title("Spring Boot REST API")
-            .description("Formation Management REST API")
+        return new ApiInfoBuilder().title("Formation Exelcia")
+            .description("Formation REST API")
             .contact(new Contact("","",""))
             .license("Apache 2.0")
             .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
