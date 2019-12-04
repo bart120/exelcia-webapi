@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.exelcia</groupId>
-	<artifactId>webapi</artifactId>
+	<artifactId>exelciawebapi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>webapi</name>
+	<name>exelciawebapi</name>
 	<description>Demo project for Spring Boot</description>
 	<packaging>war</packaging>
 	<properties>
