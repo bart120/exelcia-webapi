@@ -30,12 +30,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		String jwt = getJwtFromRequest(request);
+		
 		if(StringUtils.hasText(jwt) && tokenProvider.isValidateToken(jwt)) {
 			
 			User user = repo.findById(tokenProvider.getUserIdFromJwt(jwt)).orElseThrow(
 					() -> new ResourceNotFoundException("User", "id", 0));
 			
-			UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user, null);
+			UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 			auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 			
 			SecurityContextHolder.getContext().setAuthentication(auth);			
@@ -46,6 +47,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	
 	private String getJwtFromRequest(HttpServletRequest request) {
 		String bearerToken = request.getHeader("Authorization");
+		
 		if(StringUtils.containsWhitespace(bearerToken)) {
 			return bearerToken.split(" ")[1];
 			// return bearerToken.substring(7, bearerToken.length());

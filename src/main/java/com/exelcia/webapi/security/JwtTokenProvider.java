@@ -25,7 +25,7 @@ public class JwtTokenProvider {
 	public String generateToken(Authentication authentication) {
 		User user =  (User)authentication.getPrincipal();
 			
-		Date expireDate = new Date(System.currentTimeMillis() +expiration );
+		Date expireDate = new Date(System.currentTimeMillis() +expiration * 1000 );
 		
 		return Jwts.builder()
 				.setSubject(Long.toString(user.getId()))
@@ -48,11 +48,9 @@ public class JwtTokenProvider {
 		try {
 			Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
 			return true;
-		}catch (SignatureException e) {
-			// TODO: handle exception
 		
 		}catch (Exception e) {
-			//tout
+			System.out.println(e.getMessage());
 		}
 		
 		return false;
