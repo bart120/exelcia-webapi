@@ -57,8 +57,8 @@ public class User implements UserDetails, Serializable {
 			inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 	
-	@Transient
-	private Collection<? extends GrantedAuthority> authorities;
+	//@Transient
+	//private Collection<? extends GrantedAuthority> authorities;
 
 
 	public User() {

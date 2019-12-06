@@ -36,7 +36,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			User user = repo.findById(tokenProvider.getUserIdFromJwt(jwt)).orElseThrow(
 					() -> new ResourceNotFoundException("User", "id", 0));
 			
-			UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+			//UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+			UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user, null);
 			auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 			
 			SecurityContextHolder.getContext().setAuthentication(auth);			
